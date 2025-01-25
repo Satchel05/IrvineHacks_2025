@@ -4,10 +4,9 @@ dotenv.config({
 })
 
 const xRapidAPIKey = process.env.REALTY_API_KEY;
-const returnLimit = 1
 
-async function getListings(latitude, longitude, radius, propertyType) {
-    const url = `https://realty-mole-property-api.p.rapidapi.com/saleListings?latitude=${latitude}&longitude=${longitude}&radius=${radius}&propertyType=${propertyType}&status=Active&limit=${returnLimit}`;
+async function getListings(latitude, longitude, radius, propertyType, resultLimit) {
+    const url = `https://realty-mole-property-api.p.rapidapi.com/saleListings?latitude=${latitude}&longitude=${longitude}&radius=${radius}&propertyType=${propertyType}&status=Active&limit=${resultLimit}`;
     const options = {
         method: 'GET',
         headers: {

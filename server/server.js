@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path'); 
+const router = require('./router.js')
 
 const app = express();
 
@@ -16,7 +17,6 @@ app.listen(port, () => {
     console.log(`Server is listening at http://localhost:${port}`);
 })
 
-
 //Return response for invalid JSON
 //https://github.com/expressjs/express/issues/4065
 app.use((err, req, res, next) => {
@@ -26,6 +26,8 @@ app.use((err, req, res, next) => {
     next();
 });
 
+// Main entry point
+app.use(`${URI}`, router);
 
 app.all('*', (req, res) => { 
     res.status(404).send({ success: false, message: 'Invalid route call. Please try again.' }); 
