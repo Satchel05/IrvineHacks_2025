@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getListings } = require('./listings.js')
+const { getHousingInfo } = require('./housingInfo.js')
 
 router.get('/getListings', async function(req, res) {
     try {
@@ -13,8 +14,12 @@ router.get('/getListings', async function(req, res) {
             return;
         }
         // Get houses listed for sale
-        let houses = await getListings(latitude, longitude, radius, propertyType, resultLimit);
-        res.json({ success: true, houses: houses, message: 'Retrieval Successful.' });
+        
+        // Remove hardcoded when ready
+        // houses = await getListings(latitude, longitude, radius, propertyType, resultLimit);
+        houses = ["22701 Malaga Way, Lake Forest, CA 92630"]
+        houseInfos = await getHousingInfo(houses);
+        res.json({ success: true, housesInfo: houseInfos, message: 'Retrieval Successful.' });
     }
     catch(err) {
         console.log(err);
