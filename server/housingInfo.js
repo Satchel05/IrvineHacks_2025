@@ -48,8 +48,14 @@ async function getHousingInfo(houses) {
           },
         }
     );
-    console.log('API response:', response.data);
-    return response.data
+
+    addressFound = (record) => {
+        return !record.Results.includes("YE");
+    }
+    records = response.data.Records
+    records = records.filter(addressFound)
+    console.log(records);
+    return records
 };
 
 module.exports = {

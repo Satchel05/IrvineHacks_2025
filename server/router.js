@@ -17,7 +17,9 @@ router.get('/getListings', async function(req, res) {
         
         // Remove hardcoded when ready
         // houses = await getListings(latitude, longitude, radius, propertyType, resultLimit);
-        houses = ["22701 Malaga Way, Lake Forest, CA 92630", "8792 Midbury Drive, Huntington Beach, CA 92646"]
+        // houses = ["22701 Malaga Way, Lake Forest, CA 92630", "8792 Midbury Drive, Huntington Beach, CA 92646"]
+        houses = ["11910 212th St, Lakewood, CA 90715", "11721 Montecito Rd, Los Alamitos, CA 90720", "6392 Cornell Dr, Huntington Beach, CA 92647", 
+            "8772 Midbury Dr", "2 Fuertes, Irvine, CA 92617"]
         
         // Remove hardcoded when ready
         // houseInfos = await getHousingInfo(houses);
