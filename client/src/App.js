@@ -1,10 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
-import GoogleMaps from './components/GoogleMaps';
+import MapFormWrapper from './components/MapFormWrapper';
 
 function App() {
   return (
-    <GoogleMaps/>
+    <MapFormWrapper />
   );
 }
 
