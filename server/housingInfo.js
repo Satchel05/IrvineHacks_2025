@@ -29,7 +29,7 @@ async function getHousingInfo(houses) {
     const payload = {
       TransmissionReference: "LookupProperty POST Test",
       CustomerId: melissaAPIKey,
-      TotalRecords: "1",
+      TotalRecords: houses.length,
       Columns: "GrpPropertyAddress,\
       GrpPropertySize,GrpPool,GrpIntStructInfo,GrpIntRoomInfo,\
       GrpIntAmenities,GrpExtStructInfo,GrpExtAmenities,GrpExtBuildings,\
