@@ -53,12 +53,9 @@ async function getHousingInfo(houses) {
     const addressFound = (record) => {
         return !record.Results.includes("YE");
     }
-    console.log(response);
-    console.log(response.data);
     console.log(response.data.Records);
     records = response.data.Records
     records = records.filter(addressFound)
-    console.log(records);
     return records
 };
 
@@ -71,12 +68,17 @@ async function getSpecificHouseInfo(houseID, records, listings) {
             break;
         }
     }
-    for (address of Object.keys(listings)) {
-        if (address.includes(house.PropertyAddress.Address)) {
-            saleInfo = listings[address];
+    for (address of Object.values(listings)) {
+        console.log(listings)
+        console.log(house.PropertyAddress.Latitude - address.latitude)
+        console.log(house.PropertyAddress.Longitude - address.longitude)
+        if (Math.abs(house.PropertyAddress.Latitude - address.latitude) <= 0.001 && Math.abs(house.PropertyAddress.Longitude - address.longitude) <= 0.001) {
+            console.log("I am here")
+            saleInfo = address;
             break;
         }
     }
+    console.log(saleInfo)
     return {
         address: house.PropertyAddress.Address + ", " + house.PropertyAddress.City + ", " + house.PropertyAddress.State + " " + house.PropertyAddress.Zip,
         daysOnMarket: saleInfo.daysOnMarket,
