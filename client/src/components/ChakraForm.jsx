@@ -24,23 +24,33 @@ import { Center } from '@chakra-ui/react';
 
 import axios from 'axios';
 
-const ChakraForm = ({width}) => {
+const ChakraForm = ({width, geminiData, setGeminiData}) => {
 
     const [text, setText] = useState('');
     const [menuSelection, setMenuSelection] = useState('Single Family Home');
     const [sliderSelection, setSliderSelection] = useState(1);
 
+    // useEffect(() => {
+    //     localStorage.setItem('geminiData', geminiData);
+    // }, [geminiData]);
 
-    const handleSubmit = async () => {
-        await axios.post('http://localhost:3001/getListings', {
-                latitude: await localStorage.getItem('lat'),
-                longitude: await localStorage.getItem('lng'),
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = await axios.post('http://localhost:3001/getListings', {
+                latitude: localStorage.getItem('lat'),
+                longitude: localStorage.getItem('lng'),
                 radius: sliderSelection,
                 propertyType: menuSelection,
                 resultLimit: 2,
-                // ths was giving us trouble last time
                 freeFormAIQuery: text
         });
+
+        console.log(data);
+
+        localStorage.setItem("gemini", data.data.house.address);
+
+        setGeminiData(data);
 
     };
     

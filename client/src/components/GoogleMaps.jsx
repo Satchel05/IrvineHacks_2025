@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import {APIProvider, Map, MapCameraChangedEvent} from '@vis.gl/react-google-maps';
 import PoiMarker from './PoiMarker';
 
-const GoogleMaps = ({ width }) => {
+const GoogleMaps = ({ width, geminiData, setGeminiData }) => {
 
     const GOOGLE_MAPS_API_KEY = 'AIzaSyBC5n5d-JuNq1lETmrm99-3nYaXw5hngTM';
     const MAP_ID = '58d731dad8131c67';
@@ -32,7 +32,7 @@ const GoogleMaps = ({ width }) => {
                      gestureHandling={'greedy'}
                      disableDefaultUI={true}
                 >
-                    <PoiMarker location={{lat: coords.lat, lng: coords.lng}}/>
+                    <PoiMarker geminiData={geminiData} setGeminiData={setGeminiData} location={{lat: coords.lat, lng: coords.lng}}/>
                 </Map>
                 {/* <Circle map={}/> */}
             </APIProvider>
