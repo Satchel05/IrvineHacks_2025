@@ -68,11 +68,12 @@ async function getSpecificHouseInfo(houseID, records, listings) {
             break;
         }
     }
+    console.log("boom");
     for (address of Object.values(listings)) {
         console.log(listings)
-        console.log(house.PropertyAddress.Latitude - address.latitude)
-        console.log(house.PropertyAddress.Longitude - address.longitude)
-        if (Math.abs(house.PropertyAddress.Latitude - address.latitude) <= 0.001 && Math.abs(house.PropertyAddress.Longitude - address.longitude) <= 0.001) {
+        console.log(house.PropertyAddress.Latitude - address.Latitude)
+        console.log(house.PropertyAddress.Longitude - address.Longitude)
+        if (Math.abs(house.PropertyAddress.Latitude - address.Latitude) <= 0.001 && Math.abs(house.PropertyAddress.Longitude - address.Longitude) <= 0.001) {
             console.log("I am here")
             saleInfo = address;
             break;
