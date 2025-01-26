@@ -49,7 +49,7 @@ async function getHousingInfo(houses) {
         }
     );
 
-    addressFound = (record) => {
+    const addressFound = (record) => {
         return !record.Results.includes("YE");
     }
     records = response.data.Records
