@@ -1,5 +1,6 @@
 const axios = require('axios');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+
 dotenv.config({
     path:'./.env'
 })
@@ -61,17 +62,17 @@ async function getHousingInfo(houses) {
     return records
 };
 
-async function getSpecificHouseInfo(houseID, houses, listings) {
+async function getSpecificHouseInfo(houseID, records, listings) {
     let house = undefined;
     let saleInfo = undefined;
-    for (record in houses) {
-        if (record.RecordID == record.PropertyAddress.MAK) {
+    for (let record of records) {
+        if (houseID == record.PropertyAddress.MAK) {
             house = record;
             break;
         }
     }
-    for (address in Object.keys(listings)) {
-        if (address.includes(house.Address)) {
+    for (address of Object.keys(listings)) {
+        if (address.includes(house.PropertyAddress.Address)) {
             saleInfo = listings[address];
             break;
         }
@@ -98,5 +99,6 @@ async function getSpecificHouseInfo(houseID, houses, listings) {
 
 
 module.exports = {
-    getHousingInfo
+    getHousingInfo,
+    getSpecificHouseInfo
 };

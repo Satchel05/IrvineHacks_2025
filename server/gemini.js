@@ -43,9 +43,11 @@ async function run(prompt, records) {
     });
   
     const result = await chatSession.sendMessage(JSON.stringify({ Prompt:prompt, Records:records }));
-    console.log(result.response.text());
-    return result.response.text();
+    console.log(JSON.parse(result.response.text()).PropertyAddress.MAK);
+    return JSON.parse(result.response.text()).PropertyAddress.MAK;
 }
   
 
-export default run;
+module.exports = {
+    run
+};
