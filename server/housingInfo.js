@@ -1,5 +1,6 @@
 const axios = require('axios');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+
 dotenv.config({
     path:'./.env'
 })
@@ -52,12 +53,52 @@ async function getHousingInfo(houses) {
     const addressFound = (record) => {
         return !record.Results.includes("YE");
     }
+    console.log(response);
+    console.log(response.data);
+    console.log(response.data.Records);
     records = response.data.Records
     records = records.filter(addressFound)
     console.log(records);
     return records
 };
 
+async function getSpecificHouseInfo(houseID, records, listings) {
+    let house = undefined;
+    let saleInfo = undefined;
+    for (let record of records) {
+        if (houseID == record.PropertyAddress.MAK) {
+            house = record;
+            break;
+        }
+    }
+    for (address of Object.keys(listings)) {
+        if (address.includes(house.PropertyAddress.Address)) {
+            saleInfo = listings[address];
+            break;
+        }
+    }
+    return {
+        address: house.PropertyAddress.Address + ", " + house.PropertyAddress.City + ", " + house.PropertyAddress.State + " " + house.PropertyAddress.Zip,
+        daysOnMarket: saleInfo.daysOnMarket,
+        listedDate: saleInfo.listedDate,
+        yearBuilt: house.PropertyUseInfo.YearBuilt,
+        deedLastSaleDate: house.SaleInfo.DeedLastSaleDate,
+        deedLastSalePrice: house.SaleInfo.DeedLastSalePrice,
+        areaLotSF: house.PropertySize.AreaLotSF,
+        parkingGarage: house.PropertySize.ParkingGarage,
+        parkingGarageArea: house.PropertySize.ParkingGarageArea,
+        pool: house.Pool.Pool,
+        poolArea: house.Pool.PoolArea,
+        intRoomInfo: house.IntRoomInfo,
+        intAmenities: house.IntAmenities,
+        extAmenities: house.ExtAmenities,
+        parkingSpaceCount: house.Parking.ParkingSpaceCount,
+        estimatedValue: house.EstimatedValue
+    }
+}
+
+
 module.exports = {
-    getHousingInfo
+    getHousingInfo,
+    getSpecificHouseInfo
 };
