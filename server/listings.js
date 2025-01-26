@@ -18,11 +18,15 @@ async function getListings(latitude, longitude, radius, propertyType, resultLimi
     try {
         const response = await fetch(url, options);
         const result = await response.json();
-        let addressList = []
+        let addressDict = {}
         for (let house of result) {
-            addressList.push(house.formattedAddress)
+            addressDict[house.formattedAddress] = {
+                price: house.price,
+                daysOnMarket: house.daysOnMarket,
+                listedDate: house.listedDate
+            }
         }
-        return addressList
+        return addressDict
     } catch (error) {
         console.error(error);
     }
