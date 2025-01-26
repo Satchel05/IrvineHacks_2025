@@ -11,6 +11,14 @@ import {
     MenuDivider,
   } from '@chakra-ui/react'
 
+import {
+    Slider,
+    SliderTrack,
+    SliderFilledTrack,
+    SliderThumb,
+    SliderMark,
+} from '@chakra-ui/react'
+
 import { Button } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
 
@@ -19,25 +27,19 @@ import axios from 'axios';
 const ChakraForm = ({width}) => {
 
     const [text, setText] = useState('');
-    const [selection, setSelection] = useState('Single Family Home');
+    const [menuSelection, setMenuSelection] = useState('Single Family Home');
+    const [sliderSelection, setSliderSelection] = useState(1);
 
-
-    // useEffect(() => {
-
-    // }, [text])
-
-    // useEffect(() => {
-
-    // }, [selection])
 
     const handleSubmit = async () => {
         await axios.post('http://localhost:3001/getListings', {
                 latitude: await localStorage.getItem('lat'),
                 longitude: await localStorage.getItem('lng'),
-                radius: 3,
-                propertyType: selection,
+                radius: sliderSelection,
+                propertyType: menuSelection,
                 resultLimit: 2,
-                freeFormAIQuery: "text"
+                // ths was giving us trouble last time
+                freeFormAIQuery: text
         });
 
     };
@@ -47,22 +49,26 @@ const ChakraForm = ({width}) => {
     };
 
     const handleMenuChange = (ev) => {
-        setSelection(ev.target.innerText);
+        setMenuSelection(ev.target.innerText);
+    };
+
+    const handleSliderChange = (ev) => {
+        setSliderSelection(ev);
     };
 
     return(
         <Center w={width}>
             <form onSubmit={handleSubmit}>
                 <FormControl p={10}>
-                    <FormLabel>Descriptive Paramaters</FormLabel>
+                    <FormLabel fontSize="xl">Descriptive Paramaters</FormLabel>
                     <Textarea onChange={handleTextAreaChange} placeholder='I need a house that can fit my 16 cats'></Textarea>
                     {/* <FormHelperText>Describe the properties you are interested in</FormHelperText> */}
                 </FormControl>
                 <FormControl p={10}>
-                    <FormLabel>Select Property Type</FormLabel>
+                    <FormLabel fontSize="xl">Select Property Type</FormLabel>
                     <Menu onClick={handleMenuChange}>
                         <MenuButton as={Button}>
-                            {selection}
+                            {menuSelection}
                         </MenuButton>
                         <MenuList>
                             {/* Set padding constant */}
@@ -76,6 +82,21 @@ const ChakraForm = ({width}) => {
                         </MenuList>
                     </Menu>
                     <FormHelperText>Select the type of property you are interested in</FormHelperText>
+                </FormControl>
+                <FormControl p={10}>
+                    <FormLabel fontSize="xl">Search Range</FormLabel>
+                        <Slider onChangeEnd={handleSliderChange} defaultValue={3} min={1} max={5} step={1}>
+                            <SliderMark value={1} mt="2">1</SliderMark>
+                            <SliderMark value={2} mt="2">2</SliderMark>
+                            <SliderMark value={3} mt="2">3</SliderMark>
+                            <SliderMark value={4} mt="2">4</SliderMark>
+                            <SliderMark value={5} mt="2">5</SliderMark>
+                            <SliderTrack bg="blue.100">
+                                <SliderFilledTrack bg="blue.400"></SliderFilledTrack>
+                            </SliderTrack>
+                            <SliderThumb boxSize={4}></SliderThumb>
+                        </Slider>
+                    {/* <FormHelperText></FormHelperText> */}
                 </FormControl>
                 <FormControl p={10}>
                     <Button backgroundColor='blue.400' color='white' type="submit">Submit</Button>

@@ -5,8 +5,8 @@ import PoiMarker from './PoiMarker';
 
 const GoogleMaps = ({ width }) => {
 
-    const GOOGLE_MAPS_API_KEY = '';
-    const MAP_ID = '';
+    const GOOGLE_MAPS_API_KEY = 'AIzaSyBC5n5d-JuNq1lETmrm99-3nYaXw5hngTM';
+    const MAP_ID = '58d731dad8131c67';
 
     const [coords, setCoords] = useState({lat: 33.6405, lng: -117.8389});
     const [circleCenter, setCircleCenter] = useState({lat: 33.6405, lng: -117.8389})
