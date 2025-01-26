@@ -25,8 +25,8 @@ async function getListings(latitude, longitude, radius, propertyType, resultLimi
                 price: house.price,
                 daysOnMarket: house.daysOnMarket,
                 listedDate: house.listedDate,
-                latitude: house.latitude,
-                longitude: house.longitude
+                Latitude: house.latitude,
+                Longitude: house.longitude
             }
         }
         return addressDict
