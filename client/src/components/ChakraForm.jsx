@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {FormControl,FormLabel,FormErrorMessage, FormHelperText, Textarea} from '@chakra-ui/react'
 import {
     Menu,
@@ -14,18 +14,37 @@ import {
 import { Button } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
 
+import axios from 'axios';
+
 const ChakraForm = ({width}) => {
 
-    const handleSubmit = () => {
-    };
-
     const [text, setText] = useState('');
+    const [selection, setSelection] = useState('Single Family Home');
+
+
+    // useEffect(() => {
+
+    // }, [text])
+
+    // useEffect(() => {
+
+    // }, [selection])
+
+    const handleSubmit = async () => {
+        await axios.post('http://localhost:3001/getListings', {
+                latitude: await localStorage.getItem('lat'),
+                longitude: await localStorage.getItem('lng'),
+                radius: 3,
+                propertyType: selection,
+                resultLimit: 2,
+                freeFormAIQuery: "text"
+        });
+
+    };
     
     const handleTextAreaChange = (ev) => {
         setText(ev.target.value);
     };
-
-    const [selection, setSelection] = useState('Single Family Home');
 
     const handleMenuChange = (ev) => {
         setSelection(ev.target.innerText);

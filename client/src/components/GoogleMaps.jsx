@@ -2,8 +2,6 @@
 import { useState, useCallback } from 'react';
 import {APIProvider, Map, MapCameraChangedEvent} from '@vis.gl/react-google-maps';
 import PoiMarker from './PoiMarker';
-import dotenv from 'dotenv';
-
 
 const GoogleMaps = ({ width }) => {
 
@@ -16,6 +14,10 @@ const GoogleMaps = ({ width }) => {
     const handleClick = (ev) => {
         setCoords({lat: ev.detail.latLng.lat, lng: ev.detail.latLng.lng})
         setCircleCenter({lat: ev.detail.latLng.lat, lng: ev.detail.latLng.lng})
+        // dump to local storage
+        localStorage.setItem('lat', ev.detail.latLng.lat);
+        localStorage.setItem('lng', ev.detail.latLng.lng);
+
     };
 
     return(
