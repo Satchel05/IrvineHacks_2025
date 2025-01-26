@@ -97,7 +97,8 @@ async function getSpecificHouseInfo(houseID, records, listings) {
         parkingSpaceCount: house.Parking.ParkingSpaceCount,
         estimatedValue: house.EstimatedValue,
         latitude: house.PropertyAddress.Latitude,
-        longitude: house.PropertyAddress.Longitude
+        longitude: house.PropertyAddress.Longitude,
+        price: saleInfo.price
     }
 }
 

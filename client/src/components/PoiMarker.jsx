@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
 import '../styles/markerStyle.css';
+import { Center } from '@chakra-ui/react';
 
 // to move to seperate component
 import { Card, CardHeader, CardBody, CardFooter, Text, Heading, Stack, StackDivider } from '@chakra-ui/react';
@@ -25,16 +26,23 @@ const PoiMarker = ({location, geminiData, setGeminiData}) => {
 
         <AdvancedMarker onMouseEnter={handleOnMouseEnter} key="myCustomMarker" position={{lat: parseFloat(geminiData.data.house.latitude), lng: parseFloat(geminiData.data.house.longitude)}}>
             <Card>
-                <CardHeader>
-                    <Heading size="lg">Data</Heading>
-                </CardHeader>
+                <Center>
+                    <CardHeader maxWidth={'md'}>
+                            <Heading size="lg">Our Pick</Heading>
+                    </CardHeader>
+                </Center>
                 <CardBody>
-                    <Stack divider={<StackDivider/>}>
-                        <Text>{geminiData.data.house.address}</Text>
-                        <Text>Data 2</Text>
-                        <Text>Data 3</Text>
-                    </Stack>
+                    <Center>
+                        <Stack divider={<StackDivider/>}>
+                            <Text fontSize="md">Price: ${geminiData.data.house.price}</Text>
+                            <Text fontSize="md">Area: {geminiData.data.house.areaLotSF} sq ft.</Text>
+                            <Text fontSize="md">Year Built: {geminiData.data.house.yearBuilt}</Text>
+                        </Stack>
+                    </Center>
                 </CardBody>
+                <CardFooter>
+                    <Text fontSize="sm">{geminiData.data.house.address}</Text>
+                </CardFooter>
             </Card>
         </AdvancedMarker>
     )

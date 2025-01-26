@@ -42,7 +42,7 @@ const ChakraForm = ({width, geminiData, setGeminiData}) => {
                 longitude: localStorage.getItem('lng'),
                 radius: sliderSelection,
                 propertyType: menuSelection,
-                resultLimit: 2,
+                resultLimit: 1,
                 freeFormAIQuery: text
         });
 
